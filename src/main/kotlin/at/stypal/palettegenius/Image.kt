@@ -6,7 +6,7 @@ import java.io.IOException
 import javax.imageio.ImageIO
 
 class Image(filePath: String) {
-    private val pixels: ArrayList<Pixel> = ArrayList()
+    private val pixels: HashSet<Pixel> = HashSet()
     private lateinit var currentImage: BufferedImage
 
     init {
@@ -40,9 +40,11 @@ class Image(filePath: String) {
         }
     }
 
-    fun addPixel(pixel: Pixel) {
-        if (!(pixels.contains(pixel))) {
-            this.pixels.add(pixel)
-        }
+    private fun addPixel(pixel: Pixel) {
+        this.pixels.add(pixel)
+    }
+
+    fun getPixels(): HashSet<Pixel> {
+        return pixels
     }
 }
