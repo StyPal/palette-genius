@@ -46,4 +46,16 @@ class Pixel(red: Int, green: Int, blue: Int, alpha: Int) {
     private fun valuesInRange(red: Int, green: Int, blue: Int, alpha: Int): Boolean {
         return (red in 0..255) && (green in 0..255) && (blue in 0..255) && (alpha in 0..255)
     }
+
+    fun getRed(): Int{
+        return red
+    }
+
+    fun getGreen(): Int{
+        return green
+    }
+
+    fun getBlue(): Int{
+        return blue
+    }
 }
