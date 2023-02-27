@@ -21,4 +21,8 @@ class Images {
     fun getCLOutput(): String{
         return colorPalette.toString()
     }
+
+    fun genPNG(filePath: String) {
+        colorPalette.genPNG(filePath)
+    }
 }

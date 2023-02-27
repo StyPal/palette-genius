@@ -29,7 +29,14 @@ fun genCSS() {
 }
 
 fun genPNG() {
-    TODO("Not yet implemented")
+    println("Type in your path with the '.png' file extension: ")
+    val scanner = Scanner(System.`in`)
+    val filePath = scanner.nextLine()
+    println(filePath.substring(filePath.length-4))
+    when(filePath.substring(filePath.length-4)){
+        ".png" ->  images.genPNG(filePath)
+    }
+
 }
 
 fun getCLI() {
