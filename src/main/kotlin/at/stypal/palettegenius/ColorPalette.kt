@@ -1,7 +1,10 @@
 package at.stypal.palettegenius
 
 import java.awt.image.BufferedImage
+import java.awt.image.DataBufferInt
+import java.io.File
 import java.util.*
+import javax.imageio.ImageIO
 import kotlin.Comparator
 import kotlin.collections.ArrayList
 import kotlin.math.ln
@@ -55,20 +58,23 @@ class ColorPalette {
     fun genPNG(filePath: String) {
         //For getting an image with a 1:1 ratio and a power of 2 length/width
         val x = ln(20.0).div(2 * ln(2.0))
-        var size = 2.0.pow((x.toInt() + 1).toDouble()).toInt()
+        val size = 2.0.pow((x.toInt() + 1).toDouble()).toInt()
 
+        // create a BufferedImage with the specified size
+        val bufferedImage: BufferedImage = BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB)
 
-        val bufferedImage: BufferedImage = BufferedImage(size, size, 2)
-        var count = 0
-        for (y in 0 until size) {
-            for (x in 0 until size) {
-                if (count+1 < pixelList.size){
-                    //bufferedImage.setRGB(x,y,pixelList.get(count).getIntValue())
-                    count+=1
-                }else{
-                    break
-                }
-            }
+        // get the underlying data array of the BufferedImage
+        val data = (bufferedImage.raster.dataBuffer as DataBufferInt).data
+
+        // iterate through each pixel in the ArrayList and set the corresponding ARGB values in the data array
+        for (i in 0 until pixelList.size) {
+            val pixel = pixelList[i]
+            val argb = (pixel.getAlpha() shl 24) or (pixel.getRed() shl 16) or (pixel.getGreen() shl 8) or pixel.getBlue()
+            data[i] = argb
         }
+
+        // write the BufferedImage to a PNG image file
+        val output = File(filePath)
+        ImageIO.write(bufferedImage, "png", output)
     }
 }

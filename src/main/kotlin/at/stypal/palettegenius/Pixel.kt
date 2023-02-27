@@ -58,4 +58,8 @@ class Pixel(red: Int, green: Int, blue: Int, alpha: Int) {
     fun getBlue(): Int{
         return blue
     }
+
+    fun getAlpha(): Int {
+        return alpha
+    }
 }
