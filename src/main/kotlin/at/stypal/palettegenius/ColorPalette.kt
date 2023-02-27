@@ -3,11 +3,9 @@ package at.stypal.palettegenius
 import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayList
-import kotlin.collections.HashSet
 
 
 class ColorPalette {
-    private val pixels: HashSet<Pixel> = HashSet()
     private val pixelList: ArrayList<Pixel> = ArrayList()
 
     private var comparator = Comparator<Pixel> { p1, p2 ->
@@ -27,12 +25,27 @@ class ColorPalette {
     }
 
     fun addColors(pixels: Collection<Pixel>) {
-        this.pixels.addAll(pixels)
+        var contains = false
+        for (pixel in pixels){
+            for (pixelInList in pixelList){
+                if (pixel.getHexCode() == pixelInList.getHexCode()){
+                    contains = true
+                }
+            }
+            if (!contains) pixelList.add(pixel)
+            contains = false
+        }
     }
 
-    fun sortPalette(){
-        pixelList.clear()
-        pixelList.addAll(pixels)
+    private fun sortPalette(){
         Collections.sort(pixelList, comparator);
+    }
+
+    override fun toString(): String {
+        val string: StringBuilder = StringBuilder("")
+        for (color in pixelList){
+            string.append(color.getHexCode()).append("\n")
+        }
+        return string.toString()
     }
 }
