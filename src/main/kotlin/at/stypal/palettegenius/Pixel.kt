@@ -2,7 +2,8 @@ package at.stypal.palettegenius
 
 import java.util.InputMismatchException
 
-class Pixel(red: Int, green: Int, blue: Int, alpha: Int) {
+class Pixel(argb: Int) {
+    private var argb: Int = 0
     private var red: Int = 0
     private var green: Int = 0
     private var blue: Int = 0
@@ -11,10 +12,17 @@ class Pixel(red: Int, green: Int, blue: Int, alpha: Int) {
 
     init {
         try{
+            val alpha = (argb shr 24) and 0xff
+            val red = (argb shr 16) and 0xff
+            val green = (argb shr 8) and 0xff
+            val blue = argb and 0xff
+
             inRange = valuesInRange(red, green, blue, alpha)
             if (!inRange) {
                 throw InputMismatchException()
             }
+
+            this.argb = argb
             this.alpha = alpha
             this.red = red
             this.green = green
@@ -61,5 +69,9 @@ class Pixel(red: Int, green: Int, blue: Int, alpha: Int) {
 
     fun getAlpha(): Int {
         return alpha
+    }
+
+    fun getARGB(): Int{
+        return argb
     }
 }

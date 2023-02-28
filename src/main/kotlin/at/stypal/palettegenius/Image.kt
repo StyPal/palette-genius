@@ -26,13 +26,8 @@ class Image(filePath: String) {
             for (x in 0 until width) {
                 val argb = currentImage.getRGB(x, y)
 
-                val alpha = (argb shr 24) and 0xff
-                val red = (argb shr 16) and 0xff
-                val green = (argb shr 8) and 0xff
-                val blue = argb and 0xff
-
                 // Create a new Pixel object with the extracted components
-                val onePixel = Pixel(red, green, blue, alpha)
+                val onePixel = Pixel(argb)
 
                 // Add the new pixel to the
                 addPixel(onePixel)
