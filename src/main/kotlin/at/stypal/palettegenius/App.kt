@@ -16,16 +16,11 @@ fun getResult() {
     println("How do you want to get your result?")
     println("   1. Here in the CLI [CLI]")
     println("   2. As generated PNG [PNG]")
-    println("   3. Or as CSS file [CSS]")
     when (scanner.nextLine()) {
         "1", "CLI" -> getCLI()
         "2", "PNG" -> genPNG()
-        "3", "CSS" -> genCSS()
+        else -> println("Only numbers 1 and 2 are valid!")
     }
-}
-
-fun genCSS() {
-    TODO("Not yet implemented")
 }
 
 fun genPNG() {
@@ -47,7 +42,11 @@ fun getFilePaths(fileCount: Int) {
     println("Type in your paths to the images:")
     val scanner = Scanner(System.`in`)
     for (i in 0 until fileCount) {
-        images.addImage(scanner.nextLine())
+        var fileName = scanner.nextLine()
+        if (fileName[0] == '"' && fileName[fileName.length-1] == '"'){
+            fileName = fileName.subSequence(1,fileName.length-1).toString()
+        }
+        images.addImage(fileName)
     }
 }
 

@@ -26,11 +26,12 @@ class Image(filePath: String) {
             for (x in 0 until width) {
                 val argb = currentImage.getRGB(x, y)
 
-                // Create a new Pixel object with the extracted components
-                val onePixel = Pixel(argb)
-
-                // Add the new pixel to the
-                addPixel(onePixel)
+                if(((argb shr 24) and 0xff) != 0) {
+                    // Create a new Pixel object with the extracted components
+                    val onePixel = Pixel(argb)
+                    // Add the new pixel to the
+                    addPixel(onePixel)
+                }
             }
         }
     }
